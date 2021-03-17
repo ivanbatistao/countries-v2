@@ -1,15 +1,16 @@
 const { Router } = require("express")
 const { Country, TouristActivity } = require("../db")
+const { Op } = require("sequelize")
 
 const app = Router()
 
 app.post("/activity", async (req, res) => {
-    // validar que venga algo por req.body
-    // if(!req.body)
-    // responder con error
+  // validar que venga algo por req.body
+  // if(!req.body)
+  // responder con error
   try {
-    let { id, name, difficulty, duration, season, codes } = req.body
-    countriesId = codes.split(", ")
+    let { id, name, difficulty, duration, season, countries } = req.body
+    countriesID = countries.split(", ")
 
     const touristActivity = await TouristActivity.create({
       id,
@@ -19,19 +20,20 @@ app.post("/activity", async (req, res) => {
       season,
     })
 
-    countriesId.map(async (countryObj) => {
+    countriesID.map(async (countryObj) => {
       let country = await Country.findOne({
+        // where: {
+        //   name: { [Op.iLike]: `${countryObj}` },
+        // },
         where: {
-          id: countryObj.toUpperCase(), // COLOCAR EN EL FRONT UN FORMULARIO CONTROLADO
+          id: countryObj.toUpperCase(),
         },
       })
-
-      if((country)){
+      if (country) {
         await touristActivity.setCountries(country)
       }
     })
 
-    
     res.json({
       message: "Tourist activity was created successfully for valid countries",
     })
