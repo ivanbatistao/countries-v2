@@ -6,16 +6,16 @@ import { getTenCountries } from "../../actions/index"
  
 function Cards() {
   const dispatch = useDispatch()
-  const { countries } = useSelector((state) => state)
+  const { byContinent } = useSelector((state) => state)
  
   useEffect(() => {
     dispatch(getTenCountries())
   }, [])
  
-  if (countries) {
+  if (byContinent) {
     return (
       <div className="#">
-        {countries.map((
+        {byContinent.map((
           country // con ? se pregunta si existe algo ahí
         ) => (
           <Country
