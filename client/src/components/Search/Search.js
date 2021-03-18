@@ -17,6 +17,7 @@ export default function Search() {
   function handleSubmit(event) {
     event.preventDefault()
     dispatch(getCountriesSearch(name))
+    setName("")
   }
 
     return (
@@ -31,17 +32,6 @@ export default function Search() {
           />
           <input className="search-submit" type="submit" value="SEARCH" />
         </form>
-        {/* <div>
-          {countriesSearch.length > 0 ? countriesSearch.map((country) => (
-              <Card
-                key={country.id}
-                id={country.id}
-                flag={country.flag}
-                name={country.name}
-                continent={country.continent}
-              />
-            )) : <p>There are no countries to display</p>}
-        </div> */}
       </Fragment>
     )
 }
