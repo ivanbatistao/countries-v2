@@ -9,8 +9,6 @@ function CountryDetails() {
   const dispatch = useDispatch()
   const { countryDetails } = useSelector((state) => state)
 
-  
-
   useEffect(() => {
     dispatch(getCountryDetails(id))
   }, [])
@@ -23,14 +21,18 @@ function CountryDetails() {
         <p>{countryDetails.capital}</p>
         <p>{countryDetails.subregion}</p>
         <p>{`${countryDetails.area} km2`}</p>
-        <p>{countryDetails.population}</p>
-        {/* <div>{countryDetails.touristActivities.length > 0 ? countryDetails.touristActivities.map(
-            (touristActivity) => {
-                <p>
-                touristActivity.name
-                </p>
-            }
-        ): <p>"This country doesn't have tourist activities</p>}</div>  */}
+        <p>{`${countryDetails.population} habitants`}</p>
+        <div>
+          {countryDetails.touristActivities?.length > 0 ? (
+            countryDetails.touristActivities.map((touristActivity, id) => (
+              <div key={id}>
+                <p>{touristActivity.name}</p>
+              </div>
+            ))
+          ) : (
+            <p>This country doesn't have tourist activities</p>
+          )}
+        </div>
       </div>
     </Fragment>
   )
