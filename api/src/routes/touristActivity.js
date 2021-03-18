@@ -9,16 +9,16 @@ app.post("/activity", async (req, res) => {
   // if(!req.body)
   // responder con error
   try {
-    let { id, name, difficulty, duration, season, countries } = req.body
+    let { name, difficulty, duration, season, countries } = req.body
     countriesID = countries.split(", ")
 
     const touristActivity = await TouristActivity.create({
-      id,
       name,
       difficulty,
       duration,
       season,
     })
+
 
     countriesID.map(async (countryObj) => {
       let country = await Country.findOne({
