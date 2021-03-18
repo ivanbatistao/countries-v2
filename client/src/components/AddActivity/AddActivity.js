@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Link } from "react-router-dom"
 
 function AddActivity() {
   const [input, setInput] = useState({
@@ -97,6 +98,9 @@ function AddActivity() {
       <div>
         <input type="submit" value="Submit" />
       </div>
+      <Link to="/countries">
+        <div>Back home</div>
+      </Link>
     </form>
   )
 }
