@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react"
 import { connect, useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 // import style from './Cards.module.css'
 import { getCountryDetails } from "../../actions/index"
 
@@ -33,6 +33,9 @@ function CountryDetails() {
             <p>This country doesn't have tourist activities</p>
           )}
         </div>
+        <Link to="/countries">
+          <div>Back Home</div>
+        </Link>
       </div>
     </Fragment>
   )
