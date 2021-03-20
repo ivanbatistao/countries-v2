@@ -5,11 +5,8 @@ import {
   GET_PAGES,
   FILTER_BY_CONTINENT,
   FILTER_BY_TOURIST_ACTIVITY,
-  ORDER_ASC_ALPHABET,
-  ORDER_DESC_ALPHABET,
-  ORDER_ASC_POPULATION,
-  ORDER_DESC_POPULATION,
-  ADD_TOURIST_ACTIVITY,
+  ORDER_ASC,
+  ORDER_DESC,
 } from "../actions/action-types"
 
 export function getTenCountries() {
@@ -52,16 +49,6 @@ export function getCountryDetails(id) {
   }
 }
 
-// export function getCountriesPage(page) {
-//   return function (dispatch) {
-//     return fetch(`http://localhost:3001/countries?page=${page}`)
-//       .then((response) => response.json())
-//       .then((json) => {
-//         dispatch({ type: GET_PAGES, payload: json })
-//       })
-//   }
-// }
-
 export function getCountryPagination(page) {
   return function (dispatch) {
     return fetch(`http://localhost:3001/countries?page=${page}`)
@@ -79,25 +66,24 @@ export function filterByContinent(payload) {
   }
 }
 
-export function filterByTouristActivity(payload) {
-  return {
-    type: FILTER_BY_TOURIST_ACTIVITY,
-    payload: payload,
+export function filterByTouristActivity(touristActivity) {
+  return function (dispatch) {
+    return fetch(`http://localhost:3001/countries?activity=${touristActivity}`)
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: FILTER_BY_TOURIST_ACTIVITY, payload: json })
+      })
   }
 }
 
-// export async function postTouristActivity(payload) {
-//   try {
-//     let { name, difficulty, duration, season, countries } = payload
-//     let body = { name, difficulty, duration, season, countries }
-//     const response = await fetch("http://localholst:3001/activity", {
-//       method: "POST",
-//       header: { "Content-Type": "application/json" },
-//       body: JSON.stringify(body),
-//     })
-//     // window.location = "/"
-//   } catch (error) {
-//     console.error(error.message)
-//   }
-// }
+export function orderAsc() {
+  return {
+    type: ORDER_ASC,
+  }
+}
 
+export function orderDesc() {
+  return {
+    type: ORDER_DESC,
+  }
+}
