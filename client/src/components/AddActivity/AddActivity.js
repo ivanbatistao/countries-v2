@@ -23,11 +23,21 @@ function AddActivity() {
       let { name, difficulty, duration, season, countries } = input
       let body = { name, difficulty, duration, season, countries }
 
-      const response = await fetch("http://localhost:3001/activity", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      })
+      if (
+        name === "" ||
+        difficulty === "" ||
+        duration === "" ||
+        season === "" ||
+        countries === ""
+      ) {
+        alert("Fill all the fields")
+      } else {
+        const response = await fetch("http://localhost:3001/activity", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        })
+      }
     } catch (error) {
       console.error(error.message)
     }
@@ -47,6 +57,7 @@ function AddActivity() {
         <input
           type="text"
           name="name"
+          placeholder="Type an activity here"
           onChange={handleInputChange}
           value={input.name}
         />
@@ -77,7 +88,6 @@ function AddActivity() {
       <div>
         <label Forhtml="season">Season</label>
         <select name="season" id="season" onChange={handleInputChange}>
-          {/* onChange={(e) => handleOption(e)} */}
           <option value="">Choose a season</option>
           <option value="Summer">Summer</option>
           <option value="Fall">Fall</option>
