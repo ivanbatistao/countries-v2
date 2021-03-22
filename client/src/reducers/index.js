@@ -1,16 +1,12 @@
 import {
   GET_TEN_COUNTRIES,
-  GET_ALL_COUNTRIES,
   GET_COUNTRY_DETAILS,
   GET_COUNTRIES_SEARCH,
   GET_PAGES,
   FILTER_BY_CONTINENT,
   FILTER_BY_TOURIST_ACTIVITY,
-  ORDER_ASC_ALPHABET,
-  ORDER_DESC_ALPHABET,
-  ORDER_ASC_POPULATION,
-  ORDER_DESC_POPULATION,
-  ADD_TOURIST_ACTIVITY,
+  ORDER_ASC,
+  ORDER_DESC,
 } from "../actions/action-types"
 
 const numPages = 24
@@ -23,57 +19,105 @@ const initialState = {
     .repeat(numPages)
     .split(" ")
     .map((item, i) => i),
-  byContinent: [],
-  byTouristActivity: []
+  current: [],
+  bottom: "", // Order ASC, DESC
+  stateChooseContinent: "",
+  setContinent: "", // active or inactive
+  continentState: "", // All, Africa, Americas
 }
 
 export default function rootReducer(state = initialState, action) {
-  console.log("action reducer outside case:", action)
   switch (action.type) {
     case GET_TEN_COUNTRIES:
       return {
         ...state,
-        countries: state.countries.concat(action.payload),
-        byContinent: state.countries.concat(action.payload),
+        countries: action.payload,
+        current: action.payload,
+        stateChooseContinent: "active",
       }
     case GET_COUNTRIES_SEARCH:
       return {
         ...state,
-        countriesSearch: action.payload,
+        current: action.payload,
+        stateChooseContinent: "inactive",
       }
     case GET_COUNTRY_DETAILS:
       return {
         ...state,
         countryDetails: action.payload,
+        stateChooseContinent: "active",
       }
     case GET_PAGES:
       return {
         ...state,
         countries: action.payload,
-        byContinent: action.payload,
+        current: action.payload.sort(),
+        stateChooseContinent: "active",
       }
     case FILTER_BY_CONTINENT:
-      if (action.payload === "all") {
+      if (action.payload.continent === "all") {
+        let newAction = action.payload.json.splice(0, 10)
         return {
           ...state,
-          byContinent: state.countries,
+          countries: newAction,
+          current: newAction,
+          continentState: action.payload.continent,
+          pages: " "
+            .repeat(24)
+            .split(" ")
+            .map((item, i) => i),
         }
       } else {
-        return {
-          ...state,
-          byContinent: state.countries.filter(
-            (country) => country.continent === action.payload
-          ),
+        if (action.payload.continent !== "all") {
+          let newAction = action.payload.json
+            .filter((country) => country.continent === action.payload.continent)
+            .splice(0, 10)
+          if (action.payload.continent === "Africa" || action.payload.continent  === "Americas" || action.payload.continent === "Europe") {
+            var newPages = 5;
+          } else if (action.payload.continent === "Asia") {
+            var newPages = 4;
+          } else if (action.payload.continent === "Oceania") {
+            var newPages = 2
+          }
+          return {
+            ...state,
+            countries: newAction,
+            current: newAction,
+            continentState: action.payload.continent,
+            pages: " "
+              .repeat(newPages)
+              .split(" ")
+              .map((item, i) => i),
+          }
         }
       }
-    // case FILTER_BY_TOURIST_ACTIVITY:
-    //   console.log("action reducer inside case:", action)
-    //   return {
-    //     ...state,
-    //     byTouristActivity: state.byContinent.filter(
-    //       (country) => country.touristActivities.map(touristActivity => touristActivity.name === action.payload) 
-    //     )
-    //   }
+    case FILTER_BY_TOURIST_ACTIVITY:
+      let my = []
+      if (Array.isArray(action.payload)) {
+        let newArr = action.payload
+          .filter((obj) => obj.countries.length > 0)
+          .map((obj) => {
+            let { countries: newArr } = obj
+            my = [...my, ...newArr]
+          })
+      } else {
+        my = []
+      }
+      return {
+        ...state,
+        current: my,
+        stateChooseContinent: "inactive",
+      }
+    case ORDER_ASC:
+      return {
+        ...state,
+        bottom: "ASC",
+      }
+    case ORDER_DESC:
+      return {
+        ...state,
+        bottom: "DESC",
+      }
     default:
       return state
   }
