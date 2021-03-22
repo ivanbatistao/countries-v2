@@ -12,8 +12,15 @@ function FilterByTouristActivity() {
     setTouristActivity(e.target.value)
   }
 
-  function handleSubmit() {
-    dispatch(filterByTouristActivity(touristActivity))
+  
+  function handleSubmit(e) {
+    e.preventDefault()
+    if(touristActivity === "") {
+      alert("Type a tourist activity")
+    } else {
+      dispatch(filterByTouristActivity(touristActivity))
+      setTouristActivity("")
+    }
   }
 
   return (
