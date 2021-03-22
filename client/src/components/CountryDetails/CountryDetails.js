@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react"
-import { connect, useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useParams, Link } from "react-router-dom"
 // import style from './Cards.module.css'
 import { getCountryDetails } from "../../actions/index"
@@ -16,6 +16,7 @@ function CountryDetails() {
   return (
     <Fragment>
       <div className="country-detail">
+        <img src={`https://restcountries.eu/data/${id.toLowerCase()}.svg`}/>
         <h1>{countryDetails.name}</h1>
         <p>{countryDetails.id}</p>
         <p>{countryDetails.capital}</p>
@@ -34,7 +35,10 @@ function CountryDetails() {
           )}
         </div>
         <Link to="/countries">
-          <div>Back Home</div>
+          <button onClick="window.location.refresh=true">Back Home</button>
+        </Link>
+        <Link to="/countries/addactivity">
+          <div>Add Activity</div>
         </Link>
       </div>
     </Fragment>
