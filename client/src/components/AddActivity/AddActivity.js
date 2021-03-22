@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
+import style from "./AddActivity.module.css"
 
 function AddActivity() {
   const [input, setInput] = useState({
@@ -51,7 +52,7 @@ function AddActivity() {
   }
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
       <div>
         <label>Activity:</label>
         <input
