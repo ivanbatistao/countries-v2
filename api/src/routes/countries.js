@@ -7,8 +7,7 @@ const app = Router()
 
 app.get("/countries", async (req, res) => {
   try {
-    const { name, page, activity } = req.query
-    console.log(activity)
+    const { name, page, activity, continent } = req.query
 
     let countries = await Country.findAll()
     if (countries.length === 0) {
@@ -52,9 +51,25 @@ app.get("/countries", async (req, res) => {
       }
     }
 
-    if (page) {
+    if (page && (continent === "all" || continent === "")) {
       const pageSize = 10
       const allCountriesPage = await Country.findAll({
+        include: { model: TouristActivity },
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+        limit: pageSize,
+        offset: page * pageSize,
+      })
+      if (allCountriesPage.length > 0) {
+        res.json(allCountriesPage)
+      }
+    }
+
+    if (page && continent && continent !== "all") {
+      const pageSize = 10
+      const allCountriesPage = await Country.findAll({
+        where: {
+          continent: { [Op.iLike]: `%${continent}` },
+        },
         include: { model: TouristActivity },
         attributes: { exclude: ["createdAt", "updatedAt"] },
         limit: pageSize,
@@ -91,6 +106,16 @@ app.get("/countries", async (req, res) => {
     }
   } catch (error) {
     console.error(error.mesage)
+  }
+})
+
+app.get("/allcountries", async (req, res) => {
+  const allCountries = await Country.findAll({
+    include: { model: TouristActivity },
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+  })
+  if (allCountries.length > 0) {
+    res.json(allCountries)
   }
 })
 
