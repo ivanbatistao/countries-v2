@@ -1,22 +1,33 @@
 import React, { useEffect } from "react"
-import { connect, useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Country from "../Country/Country"
-// import style from './Cards.module.css'
 import { getTenCountries } from "../../actions/index"
- 
-function Cards() {
+
+import style from "./Countries.module.css"
+
+function Countries() {
   const dispatch = useDispatch()
-  const { byContinent } = useSelector((state) => state)
- 
+  let { current, bottom } = useSelector((state) => state)
+
   useEffect(() => {
     dispatch(getTenCountries())
   }, [])
- 
-  if (byContinent) {
+
+  if (bottom === "ASC" || bottom === "") {
+    current = current.sort(function (a, b) {
+      return a.name.localeCompare(b.name) || b.population + a.population
+    })
+  } else if (bottom === "DESC") {
+  current = current.sort(function (a, b) {
+    return b.name.localeCompare(a.name) || b.population - a.population
+  })
+} 
+
+  if (current.length > 0) {
     return (
-      <div className="#">
-        {byContinent.map((
-          country // con ? se pregunta si existe algo ahí
+      <div className={style.containerCards}>
+        {current.map((
+          country
         ) => (
           <Country
             key={country.id}
@@ -36,8 +47,8 @@ function Cards() {
     )
   }
 }
- 
-export default Cards
+
+export default Countries
 
 // import React, { useEffect } from "react"
 // import { connect } from "react-redux"
@@ -49,7 +60,7 @@ export default Cards
 //   useEffect(() => {
 //     getTenCountries()
 //   }, [])
-  
+
 //   if (countries) {
 //     return (
 //       <div className="#">
