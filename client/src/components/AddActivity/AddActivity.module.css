@@ -1,0 +1,39 @@
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  position: relative;
+  border-radius: 5px;
+  padding-top: 250px;
+  width: 100%;
+  background-color: #f7f7f7;
+}
+
+.img {
+  width: 100%;
+  max-height: fit-content;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.style.bottoms {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit,
+.backHome {
+  margin-bottom: 10px;
+  border: 2px transparent
+}
+
+.submit:hover,
+.backHome:hover {
+  background-color: skyblue;
+  border: 2px transparent;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
