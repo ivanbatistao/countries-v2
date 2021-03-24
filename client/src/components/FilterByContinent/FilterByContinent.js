@@ -1,11 +1,11 @@
-import React, { Fragment } from "react"
+import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { filterByContinent,  getCountryPagination } from "../../actions/index"
+import { filterByContinent } from "../../actions/index"
 
 function FilterByContinent() {
   const dispatch = useDispatch()
-  let { stateChooseContinent, pages } = useSelector((state) => state)
+  let { stateChooseContinent } = useSelector((state) => state)
   
   function handleOption(e) {
     e.preventDefault()
@@ -21,15 +21,13 @@ function FilterByContinent() {
   } else if (stateChooseContinent === "active" || stateChooseContinent === "") {
     return (
       <label htmlFor="continents">
-        {" "}
-        Choose a continent
         <select id="continents" onChange={(e) => handleOption(e)}>
-          <option value="all">All</option>
-          <option value="Africa">Africa</option>
-          <option value="Americas">Americas</option>
-          <option value="Asia">Asia</option>
-          <option value="Europe">Europe</option>
-          <option value="Oceania">Oceania</option>
+          <option value="all">ALL</option>
+          <option value="Africa">AFRICA</option>
+          <option value="Americas">AMERICAS</option>
+          <option value="Asia">ASIA</option>
+          <option value="Europe">EUROPE</option>
+          <option value="Oceania">OCEANIA</option>
         </select>
       </label>
     )
