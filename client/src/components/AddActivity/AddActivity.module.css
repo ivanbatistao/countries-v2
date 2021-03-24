@@ -17,16 +17,18 @@
   border-top-right-radius: 5px;
 }
 
-.style.bottoms {
+.bottoms {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
 }
 
 .submit,
 .backHome {
-  margin-bottom: 10px;
-  border: 2px transparent
+  border: 2px transparent;
+  margin-bottom: 5px;
 }
 
 .submit:hover,
@@ -37,3 +39,9 @@
   border-radius: 5px;
 }
 
+.select {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px;
+}
