@@ -32,12 +32,14 @@ export default function NavBar() {
           <img
             className={style.img1}
             src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+            alt="img-github"
           />
         </div>
         <div onClick={handleClickTwo}>
           <img
             className={style.img2}
             src="https://image.flaticon.com/icons/png/512/174/174857.png"
+            alt="img-linkedin"
           />
         </div>
       </div>
