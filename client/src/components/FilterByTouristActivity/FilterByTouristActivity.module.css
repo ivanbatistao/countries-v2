@@ -1,0 +1,24 @@
+.searchTouristButtom {
+  margin: 20px;
+}
+
+.inputSearch {
+  padding: 1px;
+  outline: none;
+  border-radius: 5px;
+}
+
+.searchSubmit {
+  padding: 5px;
+  border: 2px;
+  margin: 2px
+}
+
+.searchSubmit:hover {
+  cursor: pointer
+}
+
+.searchSubmit:hover {
+  border-radius: 5px;
+  background-color: skyblue;
+}
