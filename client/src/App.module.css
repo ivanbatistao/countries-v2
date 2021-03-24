@@ -5,6 +5,7 @@
   height: 100vh;
   font-family: 'Roboto', sans-serif;
   background-color: #f7f7f7;
+  /* position: absolute; */
 }
 
 .searchFilterActivity, .orderButtom1, .orderButtom2, .chooseContinent {
@@ -26,13 +27,6 @@
   /* position: sticky;
   top: 0; */
  }
-
-/* .nav-bar,
-.search-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-} */
 
 .initialPage {
   width: 95.5%;
