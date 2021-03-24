@@ -1,0 +1,62 @@
+.containerCards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px;
+}
+
+.card {
+  border-radius: 5px;
+  position: relative;
+  max-width: 250px;
+  min-width: 250px;
+  height: fit-content;
+  flex: 1;
+  background-color: #f7f7f7;
+  text-align: center;
+}
+
+.card:hover {
+  box-shadow: 10px 5px 5px grey;
+}
+
+.img {
+  width: 100%;
+  max-height: 125px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.name {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.p {
+  font-size: 10px;
+  margin: 0px 0px 0px 20px;
+  text-align: left;
+}
+
+.p2 {
+  font-size: 10px;
+  margin: 0px 0px 0px 20px;
+  padding: 0px 0px 0px 20px;
+  text-align: left;
+}
+
+.activities {
+  margin: 20px 0px;
+}
+
+.buttom {
+  margin: 0px 2px 10px 0px;
+  border: 2px transparent
+}
+
+.buttom:hover {
+    background-color: skyblue;
+    border: 2px transparent;
+    cursor: pointer;
+    border-radius: 5px;
+}
