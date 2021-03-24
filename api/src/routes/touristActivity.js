@@ -10,7 +10,6 @@ app.post("/activity", async (req, res) => {
   // responder con error
   try {
     let { name, difficulty, duration, season, countries } = req.body
-    countriesID = countries.split(", ")
 
     const touristActivity = await TouristActivity.create({
       name,
@@ -20,7 +19,7 @@ app.post("/activity", async (req, res) => {
     })
 
 
-    countriesID.map(async (countryObj) => {
+    countries.map(async (countryObj) => {
       let country = await Country.findOne({
         // where: {
         //   name: { [Op.iLike]: `${countryObj}` },
