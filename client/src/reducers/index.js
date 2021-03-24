@@ -14,7 +14,7 @@ import {
 const numPages = 24
 
 const initialState = {
-  countries: [],
+  // countries: [],
   countriesSearch: [],
   countryDetails: {},
   pages: " "
@@ -34,11 +34,11 @@ export default function rootReducer(state = initialState, action) {
     case GET_TEN_COUNTRIES:
       return {
         ...state,
-        countries: action.payload.sort((a, b) => {
-          if (a.name > b.name) return 1
-          if (a.name < b.name) return -1
-          return 0
-        }),
+        // countries: action.payload.sort((a, b) => {
+        //   if (a.name > b.name) return 1
+        //   if (a.name < b.name) return -1
+        //   return 0
+        // }),
         current: action.payload.sort((a, b) => {
           if (a.name > b.name) return 1
           if (a.name < b.name) return -1
@@ -72,11 +72,11 @@ export default function rootReducer(state = initialState, action) {
     case GET_PAGES:
       return {
         ...state,
-        countries: action.payload.sort((a, b) => {
-          if (a.name > b.name) return 1
-          if (a.name < b.name) return -1
-          return 0
-        }),
+        // countries: action.payload.sort((a, b) => {
+        //   if (a.name > b.name) return 1
+        //   if (a.name < b.name) return -1
+        //   return 0
+        // }),
         current: action.payload.sort((a, b) => {
           if (a.name > b.name) return 1
           if (a.name < b.name) return -1
@@ -89,11 +89,11 @@ export default function rootReducer(state = initialState, action) {
         let newAction = action.payload.json.splice(0, 10)
         return {
           ...state,
-          countries: newAction.sort((a, b) => {
-            if (a.name > b.name) return 1
-            if (a.name < b.name) return -1
-            return 0
-          }),
+          // countries: newAction.sort((a, b) => {
+          //   if (a.name > b.name) return 1
+          //   if (a.name < b.name) return -1
+          //   return 0
+          // }),
           current: newAction.sort((a, b) => {
             if (a.name > b.name) return 1
             if (a.name < b.name) return -1
@@ -127,11 +127,11 @@ export default function rootReducer(state = initialState, action) {
           }
           return {
             ...state,
-            countries: newAction.sort((a, b) => {
-              if (a.name > b.name) return 1
-              if (a.name < b.name) return -1
-              return 0
-            }),
+            // countries: newAction.sort((a, b) => {
+            //   if (a.name > b.name) return 1
+            //   if (a.name < b.name) return -1
+            //   return 0
+            // }),
             current: newAction.sort((a, b) => {
               if (a.name > b.name) return 1
               if (a.name < b.name) return -1
