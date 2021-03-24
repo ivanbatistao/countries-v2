@@ -5,12 +5,12 @@ import style from "./Country.module.css"
 export default function Card({ name, flag, continent, id }) {
   return (
     <div className={style.card}>
-      <img className={style.img} src={flag} alt="flag"></img>
+      <img className={style.img} src={flag} alt={`flag-${name}`}></img>
       <div className={style.content}>
-        <h1>{name}</h1>
-        <p>{continent}</p>
+        <h1 className={style.name}>{name}</h1>
+        <p className={style.continent}>{continent}</p>
         <Link to={`/country/${id}`}>
-          <button>Details</button>
+          <button className={style.buttom}>Details</button>
         </Link>
       </div>
     </div>
