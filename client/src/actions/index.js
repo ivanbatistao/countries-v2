@@ -7,6 +7,8 @@ import {
   FILTER_BY_TOURIST_ACTIVITY,
   ORDER_ASC,
   ORDER_DESC,
+  ORDER_POP,
+  GET_HOME
 } from "../actions/action-types"
 
 export function getTenCountries() {
@@ -17,11 +19,19 @@ export function getTenCountries() {
   }
 }
 
+// export function getCountriesSearch(name) {
+//   return async function (dispatch) {
+//     const response = await fetch(`http://localhost:3001/countries?name=${name}`)
+//     const json = await response.json()
+//     dispatch({ type: GET_COUNTRIES_SEARCH, payload: json })
+//   }
+// }
+
 export function getCountriesSearch(name) {
   return async function (dispatch) {
-    const response = await fetch(`http://localhost:3001/countries?name=${name}`)
+    const response = await fetch(`http://localhost:3001/allCountries`)
     const json = await response.json()
-    dispatch({ type: GET_COUNTRIES_SEARCH, payload: json })
+    dispatch({ type: GET_COUNTRIES_SEARCH, payload: {json, name }})
   }
 }
 
@@ -45,7 +55,7 @@ export function getCountryPagination(page, continent) {
 
 export function filterByContinent(continent) {
   return async function (dispatch) {
-    const response = await fetch(`http://localhost:3001/allCountries`)
+    const response = await fetch(`http://localhost:3001/allCountries?continent=${continent}`)
     const json = await response.json()
     dispatch({ type: FILTER_BY_CONTINENT, payload: { json, continent } })
   }
@@ -70,5 +80,18 @@ export function orderAsc() {
 export function orderDesc() {
   return {
     type: ORDER_DESC,
+  }
+}
+
+export function orderPopulation(payload) {
+  return {
+    type: ORDER_POP,
+    payload
+  }
+}
+
+export function getHome() {
+  return {
+    type: GET_HOME,
   }
 }
