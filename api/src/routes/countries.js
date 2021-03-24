@@ -28,6 +28,9 @@ app.get("/countries", async (req, res) => {
 
     if (activity) {
       const allCountriesActivity = await TouristActivity.findAll({
+        where: {
+          name: { [Op.iLike]: `${activity}` },
+        },
         include: { model: Country },
         attributes: {
           exclude: [
@@ -39,10 +42,7 @@ app.get("/countries", async (req, res) => {
             "duration",
             "season",
           ],
-        },
-        where: {
-          name: { [Op.iLike]: `${activity}` },
-        },
+        }
       })
       if (allCountriesActivity.length > 0) {
         res.json(allCountriesActivity)
@@ -109,16 +109,6 @@ app.get("/countries", async (req, res) => {
   }
 })
 
-app.get("/allcountries", async (req, res) => {
-  const allCountries = await Country.findAll({
-    include: { model: TouristActivity },
-    attributes: { exclude: ["createdAt", "updatedAt"] },
-  })
-  if (allCountries.length > 0) {
-    res.json(allCountries)
-  }
-})
-
 app.get("/countries/:id", async (req, res) => {
   try {
     const { id } = req.params
@@ -133,6 +123,26 @@ app.get("/countries/:id", async (req, res) => {
     }
   } catch (error) {
     console.error(error.message)
+  }
+})
+
+app.get("/allCountries", async (req, res) => {
+  const { continent } = req.query
+  if (continent !== "all") {
+    const allCountries = await Country.findAll({
+      include: { model: TouristActivity },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    })
+    if (allCountries.length > 0) {
+      res.json(allCountries)
+    }
+  } else {
+    const tenCountries = await Country.findAll({
+      include: { model: TouristActivity },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      limit: 10,
+    })
+    res.json(tenCountries)
   }
 })
 
