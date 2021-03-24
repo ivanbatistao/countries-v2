@@ -1,15 +1,18 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
 import style from "./AddActivity.module.css"
 
 function AddActivity() {
+
+  const [data, setData] = useState([])
+  const [countries, setCountries] = useState([])
+
   const [input, setInput] = useState({
     name: "",
     difficulty: "",
     duration: "",
     season: "",
-    countries: "",
   })
 
   function handleInputChange(e) {
@@ -22,15 +25,16 @@ function AddActivity() {
   async function handleSubmit(e) {
     e.preventDefault()
     try {
-      let { name, difficulty, duration, season, countries } = input
+      let { name, difficulty, duration, season } = input
       let body = { name, difficulty, duration, season, countries }
+
 
       if (
         name === "" ||
         difficulty === "" ||
         duration === "" ||
         season === "" ||
-        countries === ""
+        countries.length === 0
       ) {
         return alert("Fill all the fields")
       } else {
@@ -48,13 +52,31 @@ function AddActivity() {
       difficulty: "",
       duration: "",
       season: "",
-      countries: "",
     })
+    setCountries([])
   }
+
+  const dataJson = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/allCountries")
+      const jsonData = await response.json()
+      setData(jsonData.sort((a,b) => {
+          if (a.name > b.name) return 1
+          if (a.name < b.name) return -1
+          return 0
+      }))
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+  useEffect(() => {
+    dataJson()
+  }, [])
 
   return (
     <div className={style.form}>
-      <div>
+      <div className={style.cointainerInside}>
         <h1>ADD A NEW TOURIST ACTIVITY</h1>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div>
@@ -100,27 +122,37 @@ function AddActivity() {
               <option value="Spring">Spring</option>
             </select>
           </div>
-          <div>
-            <label>Countries codes: </label>
-            <input
-              type="text"
+          <div className={style.select}>
+            <label>Choose countries: </label>
+            <select
+                onChange={(e) =>
+          setCountries(
+            Array.from(e.target.selectedOptions, (option) => option.value)
+          )
+              }
               name="countries"
-              placeholder="ex: COL, MEX"
-              onChange={handleInputChange}
-              value={input.countries}
-            />
+              id="countries"
+              multiple
+            >
+              { data.map(
+                (country,i) => {
+                  return <option key={i} value={country.id}>{country.name}</option>
+                }
+              )
+              }
+            </select>
           </div>
           <div className={style.bottoms}>
             <div>
               <input className={style.submit} type="submit" value="SUBMIT" />
             </div>
-              <Link to="/countries">
-                <input
-                  className={style.backHome}
-                  type="submit"
-                  value="BACK HOME"
-                />
-              </Link>
+            <Link to="/countries">
+              <input
+                className={style.backHome}
+                type="submit"
+                value="BACK HOME"
+              />
+            </Link>
           </div>
         </form>
       </div>
