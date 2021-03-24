@@ -1,0 +1,29 @@
+.home {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  margin-top: 0px;
+  padding-bottom: 30px;
+  padding-top: 20px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
+}
+
+.nameApp {
+  font-size: 30px;
+}
+
+.link:link,
+.link:visited {
+  text-decoration: none;
+  cursor: pointer;
+  color: #000
+}
+
+.link {
+  border-bottom: 2px solid transparent;
+}
+.link:hover {
+  border-bottom: 2px solid grey;
+}
