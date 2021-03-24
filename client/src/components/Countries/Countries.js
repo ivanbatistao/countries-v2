@@ -7,7 +7,7 @@ import style from "./Countries.module.css"
 
 function Countries() {
   const dispatch = useDispatch()
-  let { current, bottom, orderPop } = useSelector((state) => state)
+  let { current } = useSelector((state) => state)
 
   useEffect(() => {
     dispatch(getTenCountries())
