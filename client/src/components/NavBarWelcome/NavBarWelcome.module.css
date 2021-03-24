@@ -1,0 +1,50 @@
+.home {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  margin-top: 0px;
+  padding-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+.nameApp {
+  font-size: 30px;
+}
+
+.link:link,
+.link:visited {
+  text-decoration: none;
+  cursor: pointer;
+  color: #000;
+}
+
+.link {
+  border-bottom: 2px solid transparent;
+}
+.link:hover {
+  border-bottom: 2px solid grey;
+}
+
+.images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img1,
+.img2 {
+  width: 1.5rem;
+  margin: 4px;
+  border-radius: 20%;
+  cursor: pointer
+}
+
+.img1 {
+  border-radius: 50%;
+}
+
+.img1:hover,
+.img2:hover {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 1), 0 1px 2px 0 rgba(0, 0, 0, 1);
+}
