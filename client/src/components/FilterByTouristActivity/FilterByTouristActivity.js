@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import { filterByTouristActivity } from "../../actions/index"
 
+import style from "./FilterByTouristActivity.module.css"
+
 function FilterByTouristActivity() {
   const dispatch = useDispatch()
 
@@ -12,10 +14,9 @@ function FilterByTouristActivity() {
     setTouristActivity(e.target.value)
   }
 
-  
   function handleSubmit(e) {
     e.preventDefault()
-    if(touristActivity === "") {
+    if (touristActivity === "") {
       alert("Type a tourist activity")
     } else {
       dispatch(filterByTouristActivity(touristActivity))
@@ -24,14 +25,19 @@ function FilterByTouristActivity() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={style.searchTouristButtom} onSubmit={handleSubmit}>
       <input
+        className={style.inputSearch}
         type="text"
-        placeholder="Look countries for a tourist activity"
+        placeholder=" Type a tourist activity"
         value={touristActivity}
         onChange={(e) => handleChange(e)}
       />
-      <input className="search-submit" type="submit" value="SUBMIT" />
+      <input
+        className={style.searchSubmit}
+        type="submit"
+        value="SEARCH BY TOURIST ACTIVITY"
+      />
     </form>
   )
 }
