@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from "react"
 import { useDispatch } from "react-redux"
-// import style from './Cards.module.css'
-// import Card from "../Card/Card"
 import { getCountriesSearch } from "../../actions/index"
+
+import style from './Search.module.css'
+
 
 export default function Search() {
   const dispatch = useDispatch()
@@ -11,6 +12,11 @@ export default function Search() {
 
   function handleChange(event) {
     setName(event.target.value)
+
+    // THESE TWO LINES ARE TO SEARCH DINAMICALLY
+    // if(event.target.value !== "") {
+    //   dispatch(getCountriesSearch(event.target.value))
+    // }
   }
 
   function handleSubmit(event) {
@@ -25,15 +31,15 @@ export default function Search() {
 
   return (
     <Fragment>
-      <form className="search-bottom" onSubmit={(e) => handleSubmit(e)}>
+      <form className={style.searchCountryButtom} onSubmit={(e) => handleSubmit(e)}>
         <input
-          className="search-input"
-          placeholder=" Type here..."
+          className={style.inputSearch}
+          placeholder=" Type a country name..."
           type="text"
           value={name}
           onChange={(e) => handleChange(e)}
         />
-        <input className="search-submit" type="submit" value="SEARCH" />
+        <input className={style.searchSubmit} type="submit" value="SEARCH FOR A COUNTRY" />
       </form>
     </Fragment>
   )
