@@ -7,21 +7,15 @@ import style from "./Countries.module.css"
 
 function Countries() {
   const dispatch = useDispatch()
-  let { current, bottom } = useSelector((state) => state)
+  let { current, bottom, orderPop } = useSelector((state) => state)
 
   useEffect(() => {
     dispatch(getTenCountries())
   }, [])
 
-  if (bottom === "ASC" || bottom === "") {
-    current = current.sort(function (a, b) {
-      return a.name.localeCompare(b.name) || b.population + a.population
-    })
-  } else if (bottom === "DESC") {
-  current = current.sort(function (a, b) {
-    return b.name.localeCompare(a.name) || b.population - a.population
-  })
-} 
+  if (!(current instanceof Array)) {
+    return (<div className={style.countries}>Country Not Found</div>)
+  }
 
   if (current.length > 0) {
     return (
@@ -41,8 +35,8 @@ function Countries() {
     )
   } else {
     return (
-      <div>
-        <p>'There are no countries to display'</p>
+      <div className={style.countries}>
+        <p>There are no countries with that activity</p>
       </div>
     )
   }
