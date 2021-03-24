@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, Link } from "react-router-dom"
 import { getCountryDetails } from "../../actions/index"
@@ -17,7 +17,7 @@ function CountryDetails() {
   return (
     <div className={style.containerCards}>
       <div className={style.card}>
-        <img className={style.img} src={`https://restcountries.eu/data/${id.toLowerCase()}.svg`} />
+        <img className={style.img} src={`https://restcountries.eu/data/${id.toLowerCase()}.svg`} alt="img-country" />
         <h1 className={style.name}>{countryDetails.name}</h1>
         <p className={style.p}>Code: {countryDetails.id}</p>
         <p className={style.p}>Capital: {countryDetails.capital}</p>
