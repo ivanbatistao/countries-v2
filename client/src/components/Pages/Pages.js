@@ -1,7 +1,8 @@
 import React, { Fragment } from "react"
-import { connect, useDispatch, useSelector } from "react-redux"
-// import style from './Cards.module.css'
+import { useDispatch, useSelector } from "react-redux"
 import { getCountryPagination } from "../../actions/index"
+
+import style from "./Pages.module.css"
 
 function Pages() {
   const dispatch = useDispatch()
@@ -12,17 +13,19 @@ function Pages() {
     dispatch(getCountryPagination(event.target.id, continentState))
   }
 
-  return (
-    <Fragment>
-      <div>
+  if (pages === "") {
+    return (<Fragment></Fragment>)
+  } else {
+    return (
+      <div className={style.pages}>
         {pages.map((page, id) => (
-          <button key={id} id={page} onClick={(e) => handleClick(e)}>
+          <button className={style.searchSubmit} key={id} id={page} onClick={(e) => handleClick(e)}>
             {page + 1}
           </button>
         ))}
       </div>
-    </Fragment>
-  )
+    )
+  }
 }
 
 export default Pages
