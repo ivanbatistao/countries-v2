@@ -8,7 +8,6 @@ function OrderButtonPopulation() {
   const dispatch = useDispatch()
   const { orderPop } = useSelector((state) => state)
 
-  console.log(orderPop)
   function handleClick(e) {
     e.preventDefault()
     if (orderPop === true) {
