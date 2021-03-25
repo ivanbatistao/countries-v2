@@ -42,6 +42,7 @@ function AddActivity() {
       season: "",
     })
     setCountries([])
+    alert("Your activity was submitted succesfully")
   }
 
   const dataJson = async () => {
