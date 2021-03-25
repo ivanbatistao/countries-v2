@@ -1,20 +1,48 @@
 .form {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
-  position: relative;
-  border-radius: 5px;
-  padding-top: 250px;
-  width: 100%;
   background-color: #f7f7f7;
+  background: #fff;
+  box-shadow: 0 30px 60px 0 rgba(90, 116, 148, 0.4);
+  border-radius: 5px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 5px;
+  left: 0;
+  right: 0;
+  position: absolute;
+  border-top: 5px solid rgb(24,29,52);
+  /*   z-index: 1; */
+  animation: bounce 1.5s infinite;
+  height: 90vh;
+}
+::-webkit-input-placeholder {
+  font-size: 1.3em;
 }
 
-.img {
-  width: 100%;
-  max-height: fit-content;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+.title,
+.secondaryTitle {
+  display: block;
+  font-family: sans-serif;
+  margin: 10px auto 5px;
+  width: 300px;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.title {
+  padding-bottom: 30px;
+}
+
+.secondaryTitle {
+  color: grey;
+  font-size: 1em
 }
 
 .bottoms {
@@ -25,18 +53,37 @@
   margin-top: 20px;
 }
 
-.submit,
-.backHome {
-  border: 2px transparent;
-  margin-bottom: 5px;
+.submit {
+  width: 200px;
+  color: white;
+  background-color: rgb(24,29,52);
+  font-size: 20px;
+  cursor: pointer;
 }
 
-.submit:hover,
-.backHome:hover {
-  background-color: skyblue;
-  border: 2px transparent;
+.submit:hover {
+  box-shadow: 15px 15px 15px 5px rgba(78, 72, 77, 0.219);
+  transform: translateY(-3px);
+  width: 310px;
+  border-top: 5px solid #dadada;
+  border-radius: 0%;
+}
+
+.backHome {
+  width: 100px;
+  color: white;
+  background-color: rgb(24,29,52);
+  font-size: 10px;
   cursor: pointer;
-  border-radius: 5px;
+  margin: 10px
+}
+
+.backHome:hover {
+  box-shadow: 15px 15px 15px 5px rgba(78, 72, 77, 0.219);
+  transform: translateY(-3px);
+  width: 100px;
+  border-top: 5px solid #dadada;
+  border-radius: 0%;
 }
 
 .select {
@@ -44,4 +91,20 @@
   justify-content: flex-start;
   align-items: center;
   padding: 5px;
+}
+
+.formEntry,
+.formEntry2 {
+  display: block;
+  margin: 5px auto;
+  min-width: 300px;
+  padding: 5px;
+  border-radius: 2px;
+  outline: none;
+  border: 0.5px solid grey;
+  transition: all 0.5s ease 0s;
+}
+
+.formEntry2 {
+  min-width: 310px;
 }
