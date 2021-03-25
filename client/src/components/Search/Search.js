@@ -13,20 +13,14 @@ export default function Search() {
   function handleChange(event) {
     setName(event.target.value)
 
-    // THESE TWO LINES ARE TO SEARCH DINAMICALLY
-    // if(event.target.value !== "") {
-    //   dispatch(getCountriesSearch(event.target.value))
-    // }
+    // THIS LINE IS TO SEARCH DINAMICALLY
+      dispatch(getCountriesSearch(event.target.value))
   }
 
   function handleSubmit(event) {
     event.preventDefault()
-    if (name === "") {
-      alert("Type a name")
-    } else {
       dispatch(getCountriesSearch(name))
       setName("")
-    }
   }
 
   return (
@@ -38,6 +32,7 @@ export default function Search() {
           type="text"
           value={name}
           onChange={(e) => handleChange(e)}
+          required
         />
         <input className={style.searchSubmit} type="submit" value="SEARCH FOR A COUNTRY" />
       </form>
