@@ -16,12 +16,8 @@ function FilterByTouristActivity() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    if (touristActivity === "") {
-      alert("Type a tourist activity")
-    } else {
       dispatch(filterByTouristActivity(touristActivity))
       setTouristActivity("")
-    }
   }
 
   return (
@@ -32,6 +28,7 @@ function FilterByTouristActivity() {
         placeholder=" Type a tourist activity"
         value={touristActivity}
         onChange={(e) => handleChange(e)}
+        required
       />
       <input
         className={style.searchSubmit}
