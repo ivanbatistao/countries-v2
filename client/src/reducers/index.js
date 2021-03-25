@@ -155,6 +155,9 @@ export default function rootReducer(state = initialState, action) {
             let { countries: arr } = obj
             myNewArr = [...myNewArr, ...arr]
           })
+          myNewArr = [...myNewArr.filter((country, i, arr) => {
+                return arr.map(a => a.name).indexOf(country.name) === i;
+            })]
       } else {
         myNewArr = []
       }
