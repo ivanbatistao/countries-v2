@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { getHome } from "../../actions/index"
 
 import style from "./AddActivity.module.css"
 
 function AddActivity() {
+  const dispatch = useDispatch()
+
   const [data, setData] = useState([])
   const [countries, setCountries] = useState([])
 
@@ -49,13 +53,7 @@ function AddActivity() {
     try {
       const response = await fetch("http://localhost:3001/allCountries")
       const jsonData = await response.json()
-      setData(
-        jsonData.sort((a, b) => {
-          if (a.name > b.name) return 1
-          if (a.name < b.name) return -1
-          return 0
-        })
-      )
+      setData(jsonData)
     } catch (error) {
       console.error(error.message)
     }
@@ -64,6 +62,10 @@ function AddActivity() {
   useEffect(() => {
     dataJson()
   }, [])
+  
+  function handleClickHome() {
+    dispatch(getHome())
+  }
 
   return (
     <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
@@ -133,7 +135,7 @@ function AddActivity() {
           <input className={style.submit} type="submit" value="SUBMIT" />
         </div>
         <Link to="/countries">
-          <input className={style.backHome} type="submit" value="BACK HOME" />
+          <button className={style.backHome} onClick={(e) => handleClickHome(e)}>BACK HOME</button>
         </Link>
       </div>
     </form>
