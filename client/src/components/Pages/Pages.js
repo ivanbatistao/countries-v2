@@ -1,16 +1,22 @@
 import React, { Fragment } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getCountryPagination } from "../../actions/index"
+import { getCountryPagination, changePage } from "../../actions/index"
 
 import style from "./Pages.module.css"
 
 function Pages() {
   const dispatch = useDispatch()
-  const { pages, continentState } = useSelector((state) => state)
+  const { pages, continentState, bottomOrder, orderPop } = useSelector((state) => state)
 
   function handleClick(event) {
     event.preventDefault()
-    dispatch(getCountryPagination(event.target.id, continentState))
+    if(orderPop !== "") {
+      dispatch(changePage(event.target.id))
+      return dispatch(getCountryPagination(event.target.id, null, null, orderPop))
+    } else {
+      dispatch(changePage(event.target.id))
+      return dispatch(getCountryPagination(event.target.id, continentState, bottomOrder))
+    }
   }
 
   if (pages === "") {
