@@ -11,7 +11,7 @@ function Countries() {
 
   useEffect(() => {
     dispatch(getTenCountries())
-  }, [])
+  }, [dispatch])
 
   if (!(current instanceof Array)) {
     return (<div className={style.countries}>Country Not Found</div>)
