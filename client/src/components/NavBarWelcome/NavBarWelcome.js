@@ -9,14 +9,6 @@ export default function NavBar() {
 
   const dispatch = useDispatch()
 
-  function handleClickOne() {
-    window.location.assign("http://github.com/ivanbatistao")
-  }
-
-  function handleClickTwo() {
-    window.location.assign("https://www.linkedin.com/in/ivanbatistao/")
-  }
-
   function handleClickHome() {
     dispatch(getHome())
   }
@@ -28,20 +20,18 @@ export default function NavBar() {
         <div onClick={(e) => handleClickHome(e)}>Home</div>
       </Link>
       <div className={style.images}>
-        <div onClick={handleClickOne}>
+        <a href="https://github.com/ivanbatistao/" target="_blank">
           <img
             className={style.img1}
             src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
             alt="img-github"
           />
-        </div>
-        <div onClick={handleClickTwo}>
-          <img
+        </a>
+          <a href="https://www.linkedin.com/in/ivanbatistao" target="_blank"><img
             className={style.img2}
             src="https://image.flaticon.com/icons/png/512/174/174857.png"
             alt="img-linkedin"
-          />
-        </div>
+          /></a>
       </div>
     </div>
   )
