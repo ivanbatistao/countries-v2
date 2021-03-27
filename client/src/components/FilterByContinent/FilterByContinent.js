@@ -5,14 +5,14 @@ import { filterByContinent } from "../../actions/index"
 
 function FilterByContinent() {
   const dispatch = useDispatch()
-  let { stateChooseContinent } = useSelector((state) => state)
+  let { stateChooseContinent, orderPop } = useSelector((state) => state)
   
   function handleOption(e) {
     e.preventDefault()
     dispatch(filterByContinent(e.target.value))
   }
 
-  if (stateChooseContinent === "inactive") {
+  if (stateChooseContinent === "inactive" || orderPop !== "") {
     return (
       <Link to="/countries">
         <button onClick="window.location.reload()">HOME</button>
