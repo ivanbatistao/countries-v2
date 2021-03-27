@@ -7,7 +7,7 @@ import InitialPage from "./components/InitialPage/InitialPage"
 import Home from "./components/Home/Home"
 import Search from "./components/Search/Search"
 import Pages from "./components/Pages/Pages"
-import OrderButtons from "./components/OrderButtons/OrderButtons"
+import OrderButtonsName from "./components/OrderButtonsName/OrderButtonsName"
 import FilterByContinent from "./components/FilterByContinent/FilterByContinent"
 import FilterByTouristActivity from "./components/FilterByTouristActivity/FilterByTouristActivity"
 import Countries from "./components/Countries/Countries"
@@ -42,7 +42,7 @@ function App() {
           <FilterByContinent />
         </div>
         <div className={style.orderButtom1}>
-          <OrderButtons />
+          <OrderButtonsName />
         </div>
         <div className={style.orderButtom2}>
           <OrderButtonPopulation />
