@@ -7,7 +7,7 @@ const app = Router()
 
 app.get("/countries", async (req, res) => {
   try {
-    const { name, page, activity, continent } = req.query
+    const { name, page, activity, continent, order, population } = req.query
 
     let countries = await Country.findAll()
     if (countries.length === 0) {
@@ -26,6 +26,34 @@ app.get("/countries", async (req, res) => {
       })
     }
 
+    if (population && page) {
+      const pageSize = 10
+      if (population === "ASC") {
+        const allCountriesPage = await Country.findAll({
+          include: { model: TouristActivity },
+          attributes: { exclude: ["createdAt", "updatedAt"] },
+          order: [["population", "ASC"]],
+          limit: pageSize,
+          offset: page * pageSize,
+        })
+        if (allCountriesPage.length > 0) {
+          res.json(allCountriesPage)
+        }
+      } else if (population === "DESC") {
+        const allCountriesPage = await Country.findAll({
+          include: { model: TouristActivity },
+          attributes: { exclude: ["createdAt", "updatedAt"] },
+          order: [["population", "DESC"]],
+          limit: pageSize,
+          offset: page * pageSize,
+        })
+        console.log(allCountriesPage)
+        if (allCountriesPage.length > 0) {
+          res.json(allCountriesPage)
+        }
+      }
+    }
+
     if (activity) {
       const allCountriesActivity = await TouristActivity.findAll({
         where: {
@@ -42,7 +70,7 @@ app.get("/countries", async (req, res) => {
             "duration",
             "season",
           ],
-        }
+        },
       })
       if (allCountriesActivity.length > 0) {
         res.json(allCountriesActivity)
@@ -53,30 +81,61 @@ app.get("/countries", async (req, res) => {
 
     if (page && (continent === "all" || continent === "")) {
       const pageSize = 10
-      const allCountriesPage = await Country.findAll({
-        include: { model: TouristActivity },
-        attributes: { exclude: ["createdAt", "updatedAt"] },
-        limit: pageSize,
-        offset: page * pageSize,
-      })
-      if (allCountriesPage.length > 0) {
-        res.json(allCountriesPage)
+      if (order === "ASC" || order === "") {
+        const allCountriesPage = await Country.findAll({
+          include: { model: TouristActivity },
+          attributes: { exclude: ["createdAt", "updatedAt"] },
+          order: [["name", "ASC"]],
+          limit: pageSize,
+          offset: page * pageSize,
+        })
+        if (allCountriesPage.length > 0) {
+          res.json(allCountriesPage)
+        }
+      } else {
+        const allCountriesPage = await Country.findAll({
+          include: { model: TouristActivity },
+          attributes: { exclude: ["createdAt", "updatedAt"] },
+          order: [["name", "DESC"]],
+          limit: pageSize,
+          offset: page * pageSize,
+        })
+        if (allCountriesPage.length > 0) {
+          res.json(allCountriesPage)
+        }
       }
     }
 
     if (page && continent && continent !== "all") {
       const pageSize = 10
-      const allCountriesPage = await Country.findAll({
-        where: {
-          continent: { [Op.iLike]: `%${continent}` },
-        },
-        include: { model: TouristActivity },
-        attributes: { exclude: ["createdAt", "updatedAt"] },
-        limit: pageSize,
-        offset: page * pageSize,
-      })
-      if (allCountriesPage.length > 0) {
-        res.json(allCountriesPage)
+      if (order === "ASC" || order === "") {
+        const allCountriesPage = await Country.findAll({
+          where: {
+            continent: { [Op.iLike]: `%${continent}` },
+          },
+          include: { model: TouristActivity },
+          attributes: { exclude: ["createdAt", "updatedAt"] },
+          order: [["name", "ASC"]],
+          limit: pageSize,
+          offset: page * pageSize,
+        })
+        if (allCountriesPage.length > 0) {
+          res.json(allCountriesPage)
+        }
+      } else {
+        const allCountriesPage = await Country.findAll({
+          where: {
+            continent: { [Op.iLike]: `%${continent}` },
+          },
+          include: { model: TouristActivity },
+          attributes: { exclude: ["createdAt", "updatedAt"] },
+          order: [["name", "DESC"]],
+          limit: pageSize,
+          offset: page * pageSize,
+        })
+        if (allCountriesPage.length > 0) {
+          res.json(allCountriesPage)
+        }
       }
     }
 
@@ -84,6 +143,7 @@ app.get("/countries", async (req, res) => {
       const tenCountries = await Country.findAll({
         include: { model: TouristActivity },
         attributes: { exclude: ["createdAt", "updatedAt"] },
+        order: [["name", "ASC"]],
         limit: 10,
         offset: 0,
       })
@@ -95,6 +155,7 @@ app.get("/countries", async (req, res) => {
         where: {
           name: { [Op.iLike]: `%${name}%` },
         },
+        order: [["name", "DESC"]],
       })
       if (matchingCountries.length === 0) {
         res.json({
@@ -104,6 +165,72 @@ app.get("/countries", async (req, res) => {
         res.json(matchingCountries)
       }
     }
+
+    // if (page && (continent === "all" || continent === "")) {
+    //   const pageSize = 10
+    //   const allCountriesPage = await Country.findAll({
+    //     include: { model: TouristActivity },
+    //     attributes: { exclude: ["createdAt", "updatedAt"] },
+    //     order: [[
+    //       'name', 'ASC'
+    //     ]],
+    //     limit: pageSize,
+    //     offset: page * pageSize,
+    //   })
+    //   if (allCountriesPage.length > 0) {
+    //     res.json(allCountriesPage)
+    //   }
+    // }
+
+    // if (page && continent && continent !== "all") {
+    //   const pageSize = 10
+    //   const allCountriesPage = await Country.findAll({
+    //     where: {
+    //       continent: { [Op.iLike]: `%${continent}` },
+    //     },
+    //     include: { model: TouristActivity },
+    //     attributes: { exclude: ["createdAt", "updatedAt"] },
+    //     order: [[
+    //       'name', 'ASC'
+    //     ]],
+    //     limit: pageSize,
+    //     offset: page * pageSize,
+    //   })
+    //   if (allCountriesPage.length > 0) {
+    //     res.json(allCountriesPage)
+    //   }
+    // }
+
+    // if (!name) {
+    //   const tenCountries = await Country.findAll({
+    //     include: { model: TouristActivity },
+    //     attributes: { exclude: ["createdAt", "updatedAt"] },
+    //     order: [[
+    //       'name', 'ASC'
+    //     ]],
+    //     limit: 10,
+    //     offset: 0,
+    //   })
+    //   res.json(tenCountries)
+    // } else {
+    //   const matchingCountries = await Country.findAll({
+    //     include: { model: TouristActivity },
+    //     attributes: { exclude: ["createdAt", "updatedAt"] },
+    //     where: {
+    //       name: { [Op.iLike]: `%${name}%` },
+    //     },
+    //     order: [[
+    //       'name', 'ASC'
+    //     ]],
+    //   })
+    //   if (matchingCountries.length === 0) {
+    //     res.json({
+    //       messaje: "Country doesn't exist",
+    //     })
+    //   } else {
+    //     res.json(matchingCountries)
+    //   }
+    // }
   } catch (error) {
     console.error(error.mesage)
   }
@@ -115,6 +242,7 @@ app.get("/countries/:id", async (req, res) => {
     const country = await Country.findByPk(id.toUpperCase(), {
       include: { model: TouristActivity },
       attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [["name", "ASC"]],
     })
     if (country) {
       res.json(country)
@@ -132,6 +260,7 @@ app.get("/allCountries", async (req, res) => {
     const allCountries = await Country.findAll({
       include: { model: TouristActivity },
       attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [["name", "ASC"]],
     })
     if (allCountries.length > 0) {
       res.json(allCountries)
@@ -140,6 +269,7 @@ app.get("/allCountries", async (req, res) => {
     const tenCountries = await Country.findAll({
       include: { model: TouristActivity },
       attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [["name", "ASC"]],
       limit: 10,
     })
     res.json(tenCountries)
@@ -147,3 +277,100 @@ app.get("/allCountries", async (req, res) => {
 })
 
 module.exports = app
+
+//  ----- To order ASC and DESC ----
+// ---- To order ASC and DESC -----
+
+// if (page && (continent === "all" || continent === "")) {
+//   const pageSize = 10
+//   if (order === "ASC") {
+//     const allCountriesPage = await Country.findAll({
+//       include: { model: TouristActivity },
+//       attributes: { exclude: ["createdAt", "updatedAt"] },
+//       order: [["name", "ASC"]],
+//       limit: pageSize,
+//       offset: page * pageSize,
+//     })
+//     if (allCountriesPage.length > 0) {
+//       res.json(allCountriesPage)
+//     }
+//   } else {
+//     const allCountriesPage = await Country.findAll({
+//       include: { model: TouristActivity },
+//       attributes: { exclude: ["createdAt", "updatedAt"] },
+//       order: [["name", "DESC"]],
+//       limit: pageSize,
+//       offset: page * pageSize,
+//     })
+//     if (allCountriesPage.length > 0) {
+//       res.json(allCountriesPage)
+//     }
+//   }
+// }
+
+// if (page && continent && continent !== "all") {
+//    const pageSize = 10
+//   if (order === "ASC") {
+//     const allCountriesPage = await Country.findAll({
+//       where: {
+//         continent: { [Op.iLike]: `%${continent}` },
+//       },
+//       include: { model: TouristActivity },
+//       attributes: { exclude: ["createdAt", "updatedAt"] },
+//       order: [["name", "ASC"]],
+//       limit: pageSize,
+//       offset: page * pageSize,
+//     })
+//     if (allCountriesPage.length > 0) {
+//       res.json(allCountriesPage)
+//     }
+//   } else {
+//     const allCountriesPage = await Country.findAll({
+//       where: {
+//         continent: { [Op.iLike]: `%${continent}` },
+//       },
+//       include: { model: TouristActivity },
+//       attributes: { exclude: ["createdAt", "updatedAt"] },
+//       order: [["name", "DESC"]],
+//       limit: pageSize,
+//       offset: page * pageSize,
+//     })
+//     if (allCountriesPage.length > 0) {
+//       res.json(allCountriesPage)
+//     }
+//   }
+// }
+
+// if (!name) {
+//   if (order === "ASC") {
+// const tenCountries = await Country.findAll({
+//     include: { model: TouristActivity },
+//     attributes: { exclude: ["createdAt", "updatedAt"] },
+//     order: [[
+//       "name", "ASC"
+//     ]],
+//     limit: 10,
+//     offset: 0,
+//   })
+//   res.json(tenCountries)
+// }
+// }
+//    else {
+//   const matchingCountries = await Country.findAll({
+//     include: { model: TouristActivity },
+//     attributes: { exclude: ["createdAt", "updatedAt"] },
+//     where: {
+//       name: { [Op.iLike]: `%${name}%` },
+//     },
+//     order: [[
+//       "name", "DESC"
+//     ]],
+//   })
+//   if (matchingCountries.length === 0) {
+//     res.json({
+//       messaje: "Country doesn't exist",
+//     })
+//   } else {
+//     res.json(matchingCountries)
+//   }
+// }
