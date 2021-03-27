@@ -14,7 +14,7 @@ export default function Search() {
     setName(event.target.value)
 
     // THIS LINE IS TO SEARCH DINAMICALLY
-      dispatch(getCountriesSearch(event.target.value))
+      // dispatch(getCountriesSearch(name))
   }
 
   function handleSubmit(event) {
