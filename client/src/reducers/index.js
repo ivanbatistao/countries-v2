@@ -8,7 +8,8 @@ import {
   ORDER_ASC,
   ORDER_DESC,
   ORDER_POP,
-  GET_HOME
+  GET_HOME,
+  PAGE
 } from "../actions/action-types"
 
 const numPages = 24
@@ -22,11 +23,12 @@ const initialState = {
     .split(" ")
     .map((item, i) => i),
   current: [],
-  bottom: "", // Order ASC, DESC
+  bottomOrder: "", // Order ASC, DESC
   stateChooseContinent: "",
   setContinent: "", // active or inactive
   continentState: "", // All, Africa, Americas
-  orderPop: true,
+  orderPop: "",
+  page: 0,
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -39,11 +41,7 @@ export default function rootReducer(state = initialState, action) {
         //   if (a.name < b.name) return -1
         //   return 0
         // }),
-        current: action.payload.sort((a, b) => {
-          if (a.name > b.name) return 1
-          if (a.name < b.name) return -1
-          return 0
-        }),
+        current: action.payload,
         stateChooseContinent: "active",
       }
     // case GET_COUNTRIES_SEARCH:
@@ -53,10 +51,15 @@ export default function rootReducer(state = initialState, action) {
     //     stateChooseContinent: "inactive",
     //     pages: "",
     //   }
-      case GET_COUNTRIES_SEARCH:
+    case GET_COUNTRIES_SEARCH:
       let newName = action.payload.name.toLowerCase()
-      let newPayloadJson = action.payload.json.map(obj => ({...obj, name: obj.name.toLowerCase()}))
-      let newPayload = newPayloadJson.filter(obj => obj.name.includes(newName))
+      let newPayloadJson = action.payload.json.map((obj) => ({
+        ...obj,
+        name: obj.name.toLowerCase(),
+      }))
+      let newPayload = newPayloadJson
+        .filter((obj) => obj.name.includes(newName))
+        .splice(0, 10)
       return {
         ...state,
         current: newPayload,
@@ -77,11 +80,7 @@ export default function rootReducer(state = initialState, action) {
         //   if (a.name < b.name) return -1
         //   return 0
         // }),
-        current: action.payload.sort((a, b) => {
-          if (a.name > b.name) return 1
-          if (a.name < b.name) return -1
-          return 0
-        }),
+        current: action.payload,
         stateChooseContinent: "active",
       }
     case FILTER_BY_CONTINENT:
@@ -94,36 +93,30 @@ export default function rootReducer(state = initialState, action) {
           //   if (a.name < b.name) return -1
           //   return 0
           // }),
-          current: newAction.sort((a, b) => {
-            if (a.name > b.name) return 1
-            if (a.name < b.name) return -1
-            return 0
-          }),
+          current: newAction,
           continentState: action.payload.continent,
           pages: " "
             .repeat(24)
             .split(" ")
             .map((item, i) => i),
-          buttom: "",
+          bottomOrder: "",
         }
       } else {
         if (action.payload.continent !== "all") {
+          let newPages
           let newAction = action.payload.json
             .filter((country) => country.continent === action.payload.continent)
-            .sort(function (a, b) {
-              return a.name.localeCompare(b.name) || b.population + a.population
-            })
             .splice(0, 10)
           if (
             action.payload.continent === "Africa" ||
             action.payload.continent === "Americas" ||
             action.payload.continent === "Europe"
           ) {
-            var newPages = 5
+            newPages = 5
           } else if (action.payload.continent === "Asia") {
-            var newPages = 4
+            newPages = 4
           } else if (action.payload.continent === "Oceania") {
-            var newPages = 2
+            newPages = 2
           }
           return {
             ...state,
@@ -132,17 +125,14 @@ export default function rootReducer(state = initialState, action) {
             //   if (a.name < b.name) return -1
             //   return 0
             // }),
-            current: newAction.sort((a, b) => {
-              if (a.name > b.name) return 1
-              if (a.name < b.name) return -1
-              return 0
-            }),
+            current: newAction,
             continentState: action.payload.continent,
             pages: " "
               .repeat(newPages)
               .split(" ")
               .map((item, i) => i),
-            buttom: "DESC",
+            buttomOrder: "",
+            orderPop: ""
           }
         }
       }
@@ -153,11 +143,13 @@ export default function rootReducer(state = initialState, action) {
           .filter((obj) => obj.countries.length > 0)
           .map((obj) => {
             let { countries: arr } = obj
-            myNewArr = [...myNewArr, ...arr]
+            return (myNewArr = [...myNewArr, ...arr])
           })
-          myNewArr = [...myNewArr.filter((country, i, arr) => {
-                return arr.map(a => a.name).indexOf(country.name) === i;
-            })]
+        myNewArr = [
+          ...myNewArr.filter((country, i, arr) => {
+            return arr.map((a) => a.name).indexOf(country.name) === i
+          }),
+        ]
       } else {
         myNewArr = []
       }
@@ -170,54 +162,37 @@ export default function rootReducer(state = initialState, action) {
     case ORDER_ASC:
       return {
         ...state,
-        current: state.current.sort((a, b) => {
-          if (a.name > b.name) return 1
-          if (a.name < b.name) return -1
-          return 0
-        }),
-        bottom: "ASC",
+        current: action.payload,
+        bottomOrder: "ASC",
+        orderPop: ""
       }
     case ORDER_DESC:
       return {
         ...state,
-        current: state.current.sort((a, b) => {
-          if (a.name > b.name) return -1
-          if (a.name < b.name) return 1
-          return 0
-        }),
-        bottom: "DESC",
+        current: action.payload,
+        bottomOrder: "DESC",
+        orderPop: ""
       }
     case ORDER_POP:
-      console.log("reducer", action.poyload)
-      if (action.payload === true) {
+      console.log(action.payload.population)
         return {
           ...state,
-          current: state.current.sort((a, b) => {
-            if (a.population > b.population) return 1
-            if (a.population < b.population) return -1
-            return 0
-          }),
-          orderPop: true,
+          current: action.payload.json,
+          orderPop: action.payload.population,
         }
-      }
-      if (action.payload === false) {
-        return {
-          ...state,
-          current: state.current.sort((a, b) => {
-            if (a.population > b.population) return -1
-            if (a.population < b.population) return 1
-            return 0
-          }),
-          orderPop: false,
-        }
-      }
     case GET_HOME:
       return {
         ...state,
         pages: " "
-        .repeat(24)
-        .split(" ")
-        .map((item, i) => i),
+          .repeat(24)
+          .split(" ")
+          .map((item, i) => i),
+      }
+    case PAGE:
+      return {
+        ...state,
+        current: state.current,
+        page: action.payload,
       }
     default:
       return state
