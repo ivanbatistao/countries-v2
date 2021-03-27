@@ -42,7 +42,7 @@ describe("Country activity", () => {
     })
   )
   beforeEach(() =>
-    TouristActivity.sync({ force: true }).then(() =>
+    TouristActivity.sync({ force: false }).then(() =>
       TouristActivity.create(touristActivity)
     )
   )
@@ -56,7 +56,7 @@ describe("Country activity", () => {
         difficulty: "4",
         duration: "1",
         season: "Summer",
-        countries: "COL"
+        countries: ["COL"]
       }).expect(200), done() })
       
       it("it should responds with 404 - recieve an array", (done) => {
@@ -66,6 +66,6 @@ describe("Country activity", () => {
           difficulty: "4",
           duration: "1",
           season: "Summer",
-          countries: "COL"
+          countries: ["COL"]
         }]).expect(404), done() })
 })
