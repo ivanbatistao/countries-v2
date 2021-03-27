@@ -12,7 +12,7 @@ function CountryDetails() {
 
   useEffect(() => {
     dispatch(getCountryDetails(id))
-  }, [])
+  }, [dispatch, id])
 
   return (
     <div className={style.containerCards}>
