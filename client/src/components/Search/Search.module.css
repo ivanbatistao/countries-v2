@@ -1,24 +1,65 @@
-.searchCountryButtom {
+@import url("https://fonts.googleapis.com/css2?family=Arvo&display=swap");
+
+/* .searchCountryButtom {
   margin: 20px;
+} */
+
+.searchCountryButtom {
+  width: 80%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px
 }
 
-.inputSearch {
-  padding: 1px;
+/* .inputSearch {
+  padding: 5px;
   outline: none;
   border-radius: 5px;
+} */
+
+.inputSearch {
+  width: 100%;
+  border: 3px solid #00b4cc;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  font-size: 12px;
+  color: #9dbfaf;
+  font-family: "Arvo";
 }
 
-.searchSubmit {
-  padding: 5px;
+.inputSearch:focus {
+  color: #00b4cc;
+}
+
+/* .searchSubmit {
+  padding: 7px;
   border: 2px;
   margin: 2px
+} */
+
+.searchSubmit {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00b4cc;
+  background: #00b4cc;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .searchSubmit:hover {
-  cursor: pointer
+  cursor: pointer;
+  /* outline: none; */
 }
 
-.searchSubmit:hover {
+/* .searchSubmit:hover {
   border-radius: 5px;
   background-color: skyblue;
-}
+} */
