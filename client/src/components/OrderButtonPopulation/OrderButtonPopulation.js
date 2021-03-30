@@ -1,5 +1,7 @@
 import React, { Fragment } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { ImSortNumericAsc, ImSortNumbericDesc } from "react-icons/im"
+import { IoIosPeople } from "react-icons/io"
 import { orderPopulationAsc, orderPopulationDesc } from "../../actions/index"
 
 import style from "./OrderButtonPopulation.module.css"
@@ -21,18 +23,31 @@ function OrderButtonPopulation() {
 
   if (continentState !== "all" && continentState !== "") {
     return <Fragment></Fragment>
+  } else {
+    return (
+      <div className={style.containerPop}>
+        <button
+          title="Order countries ascendent by population"
+          className={style.searchSubmit}
+          type="button"
+          onClick={(e) => handleClickAsc(e)}
+        >
+          <ImSortNumericAsc />
+          <IoIosPeople />
+        </button>
+        <button
+          title="Order countries descendent by population"
+          className={style.searchSubmit}
+          type="button"
+          onClick={(e) => handleClickDesc(e)}
+        >
+          <ImSortNumbericDesc />
+
+          <IoIosPeople />
+        </button>
+      </div>
+    )
   }
-  
-  else {return (
-    <Fragment>
-    <button className={style.searchSubmit} type="button" onClick={(e) => handleClickAsc(e)}>
-      POP ASC
-    </button>
-    <button className={style.searchSubmit} type="button" onClick={(e) => handleClickDesc(e)}>
-      POP DESC
-    </button>
-  </Fragment>
-  ) }
 }
 
 export default OrderButtonPopulation
