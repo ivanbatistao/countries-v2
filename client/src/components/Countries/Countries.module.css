@@ -1,12 +1,14 @@
 .containerCards {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #F7F7F7;
 }
 
-.country, .countries {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.country,
+.countries {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
