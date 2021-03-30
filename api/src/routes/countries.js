@@ -47,7 +47,6 @@ app.get("/countries", async (req, res) => {
           limit: pageSize,
           offset: page * pageSize,
         })
-        console.log(allCountriesPage)
         if (allCountriesPage.length > 0) {
           res.json(allCountriesPage)
         }
