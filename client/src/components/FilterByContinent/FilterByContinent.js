@@ -1,7 +1,9 @@
-import React from "react"
+import React, { Fragment } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { filterByContinent } from "../../actions/index"
+
+import style from "./FilterByContinent.module.css"
 
 function FilterByContinent() {
   const dispatch = useDispatch()
@@ -12,16 +14,18 @@ function FilterByContinent() {
     dispatch(filterByContinent(e.target.value))
   }
 
-  if (stateChooseContinent === "inactive" || orderPop !== "") {
+  if (stateChooseContinent === "inactive") {
     return (
       <Link to="/countries">
-        <button onClick="window.location.reload()">HOME</button>
+        <button className={style.button} onClick="window.location.reload()">HOME</button>
       </Link>
     )
+  } else if (orderPop !== "") {
+    return <Fragment></Fragment>
   } else if (stateChooseContinent === "active" || stateChooseContinent === "") {
     return (
-      <label htmlFor="continents">
-        <select id="continents" onChange={(e) => handleOption(e)}>
+        <select className={style.container} id="continents" onChange={(e) => handleOption(e)}>
+          <option value="all">CHOOSE A CONTINENT</option>
           <option value="all">ALL</option>
           <option value="Africa">AFRICA</option>
           <option value="Americas">AMERICAS</option>
@@ -29,7 +33,6 @@ function FilterByContinent() {
           <option value="Europe">EUROPE</option>
           <option value="Oceania">OCEANIA</option>
         </select>
-      </label>
     )
   }
 }
