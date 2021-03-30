@@ -36,7 +36,7 @@ function Countries() {
   } else {
     return (
       <div className={style.countries}>
-        <p>There are no countries with that activity</p>
+        <p>There are no countries to show</p>
       </div>
     )
   }
