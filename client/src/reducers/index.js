@@ -9,7 +9,7 @@ import {
   ORDER_DESC,
   ORDER_POP,
   GET_HOME,
-  PAGE
+  PAGE,
 } from "../actions/action-types"
 
 const numPages = 24
@@ -60,11 +60,15 @@ export default function rootReducer(state = initialState, action) {
       let newPayload = newPayloadJson
         .filter((obj) => obj.name.includes(newName))
         .splice(0, 10)
-      return {
-        ...state,
-        current: newPayload,
-        stateChooseContinent: "inactive",
-        pages: "",
+        .map((obj) => ({
+          ...obj,
+          name: obj.name.charAt(0).toUpperCase() + obj.name.slice(1),
+        }))
+        return {
+          ...state,
+          current: newPayload,
+          stateChooseContinent: "inactive",
+          pages: "",
       }
     case GET_COUNTRY_DETAILS:
       return {
@@ -131,8 +135,8 @@ export default function rootReducer(state = initialState, action) {
               .repeat(newPages)
               .split(" ")
               .map((item, i) => i),
-            buttomOrder: "",
-            orderPop: ""
+            bottomOrder: "",
+            orderPop: "",
           }
         }
       }
@@ -164,22 +168,22 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         current: action.payload,
         bottomOrder: "ASC",
-        orderPop: ""
+        orderPop: "",
       }
     case ORDER_DESC:
       return {
         ...state,
         current: action.payload,
         bottomOrder: "DESC",
-        orderPop: ""
+        orderPop: "",
       }
     case ORDER_POP:
       console.log(action.payload.population)
-        return {
-          ...state,
-          current: action.payload.json,
-          orderPop: action.payload.population,
-        }
+      return {
+        ...state,
+        current: action.payload.json,
+        orderPop: action.payload.population,
+      }
     case GET_HOME:
       return {
         ...state,
