@@ -1,18 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
 
 .main {
   width: 100vw;
-  height: 100vh;
-  font-family: 'Roboto', sans-serif;
+  min-height: 93vh;
+  font-family: 'Arvo', sans-serif;
   background-color: #f7f7f7;
-  /* position: absolute; */
+  padding-bottom: 25px;
 }
 
-.searchFilterActivity, .orderButtom1, .orderButtom2, .chooseContinent {
+.filtersOrders {
   display: flex;
-  justify-content: center;
+  justify-content:space-around;
+  align-items: center;
+  margin: 1.2rem 0.25rem 30px 0.25rem;
+}
+
+.searchFilterActivity, .AscDesc {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
   align-items: center;
   margin: 10px 5px 1px 5px;
+}
+
+.containerPagesContinent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.footer {
+  position: sticky;
+  bottom: 0;
+}
+/* .searchFilterActivity {
+  flex-direction: column;
 }
 
 .orderButtom2 {
@@ -24,9 +49,9 @@
   background-color: #fafafa;
   border-bottom: 30px hotpink;
   padding: 0;
-  /* position: sticky;
-  top: 0; */
- }
+  // position: sticky;
+  // top: 0; 
+ } 
 
 .initialPage {
   width: 95.5%;
@@ -35,4 +60,4 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+} */
