@@ -1,5 +1,5 @@
 .card {
-  border-radius: 5px;
+  border-radius: 0.3rem;
   position: relative;
   margin: 20px;
   max-width: 250px;
@@ -12,12 +12,13 @@
 }
 
 .card:hover {
-  box-shadow: 10px 5px 5px grey;
+  box-shadow: 10px 5px 5px rgb(0, 180, 204, 0.3);
 }
 
 .img {
   width: 100%;
   max-height: 125px;
+  min-width: 250px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
@@ -29,17 +30,26 @@
 
 .continent {
   font-size: 10px;
-  margin-top: 0px
+  margin-top: 0px;
 }
 
 .buttom {
-  margin: 0px 2px 10px 0px;
-  border: 2px transparent
+  width: 100px;
+  background-color: rgb(0, 180, 204);
+  border: 2px solid rgb(128, 128, 128, 0.2);
+  border-radius: 0.2rem;
+  color: white;
+  cursor: pointer;
+  font-size: 10px;
+  font-family: "Arvo";
+  margin: 10px;
+  outline: none;
 }
 
 .buttom:hover {
-    background-color: skyblue;
-    border: 2px transparent;
-    cursor: pointer;
-    border-radius: 5px;
+  box-shadow: 15px 15px 15px 5px rgba(78, 72, 77, 0.219);
+  transform: translateY(-3px);
+  width: 100px;
+  border-top: 3px solid;
+  border-radius: 0.2rem;
 }
