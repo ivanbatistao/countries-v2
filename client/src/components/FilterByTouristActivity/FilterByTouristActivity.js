@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
+import { FaSearch } from "react-icons/fa"
 import { filterByTouristActivity } from "../../actions/index"
 
 import style from "./FilterByTouristActivity.module.css"
@@ -30,11 +31,9 @@ function FilterByTouristActivity() {
         onChange={(e) => handleChange(e)}
         required
       />
-      <input
-        className={style.searchSubmit}
-        type="submit"
-        value="SEARCH BY TOURIST ACTIVITY"
-      />
+     <button type="submit" className={style.searchSubmit}>
+          <FaSearch />
+        </button>
     </form>
   )
 }
