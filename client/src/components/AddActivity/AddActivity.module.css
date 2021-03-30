@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+
 .form {
   display: flex;
   flex-direction: column;
@@ -16,13 +18,12 @@
   left: 0;
   right: 0;
   position: absolute;
-  border-top: 5px solid rgb(24,29,52);
-  /*   z-index: 1; */
+  border-top: 5px solid #00b4cc;
   animation: bounce 1.5s infinite;
-  height: 90vh;
+  height: 87vh;
 }
 ::-webkit-input-placeholder {
-  font-size: 1.3em;
+  font-size: 0.7rem;
 }
 
 .title,
@@ -32,8 +33,9 @@
   margin: 10px auto 5px;
   width: 300px;
   text-align: center;
-  font-size: 2em;
+  font-size: 1.5rem;
   font-weight: bold;
+  font-family: "Arvo";
 }
 
 .title {
@@ -42,7 +44,7 @@
 
 .secondaryTitle {
   color: grey;
-  font-size: 1em
+  font-size: 1rem;
 }
 
 .bottoms {
@@ -51,14 +53,18 @@
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  font-family: "Arvo";
+  outline: none;
 }
 
 .submit {
   width: 200px;
   color: white;
-  background-color: rgb(24,29,52);
+  background-color: #00b4cc;
   font-size: 20px;
   cursor: pointer;
+  font-family: "Arvo";
+  outline: none;
 }
 
 .submit:hover {
@@ -72,10 +78,11 @@
 .backHome {
   width: 100px;
   color: white;
-  background-color: rgb(24,29,52);
+  background-color: #00b4cc;
   font-size: 10px;
   cursor: pointer;
   margin: 10px;
+  outline: none;
 }
 
 .backHome:hover {
@@ -103,6 +110,10 @@
   outline: none;
   border: 0.5px solid grey;
   transition: all 0.5s ease 0s;
+  font-family: "Arvo";
+  background-color: #F7F7F7;
+  background-image: linear-gradient(to top, #F7F7F7, #F7F7F7 33%);
+  font-size: 12px;
 }
 
 .formEntry2 {
