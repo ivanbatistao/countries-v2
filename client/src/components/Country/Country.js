@@ -10,7 +10,7 @@ export default function Card({ name, flag, continent, id }) {
         <h1 className={style.name}>{name}</h1>
         <p className={style.continent}>{continent}</p>
         <Link to={`/country/${id}`}>
-          <button className={style.buttom}>Details</button>
+          <button className={style.buttom}>DETAILS</button>
         </Link>
       </div>
     </div>
