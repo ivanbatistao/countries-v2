@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className={style.footer}>
       <div>
         &copy; Developed with <span>❤️</span> by{" "}
-        <a className={style.text} href="https://linkedin.com/in/ivanbatistao" target="_blank">
+        <a className={style.text} href="https://linkedin.com/in/ivanbatistao" target="_blank" rel="noreferrer">
           Ivan E. Batista-Ochoa.
         </a>
       </div>

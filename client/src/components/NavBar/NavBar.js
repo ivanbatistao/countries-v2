@@ -12,6 +12,7 @@ export default function NavBar() {
               <img
                 className={style.img}
                 src="https://www.flaticon.com/premium-icon/icons/svg/2072/2072130.svg"
+                alt="main-img-logo"
               />
             </Link>
           </li>

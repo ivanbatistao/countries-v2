@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { FaSearch } from "react-icons/fa"
 import { useDispatch } from "react-redux"
-import { getCountriesSearch, getTenCountries } from "../../actions/index"
+import { getCountriesSearch } from "../../actions/index"
 
 import style from "./Search.module.css"
 

@@ -122,10 +122,11 @@ export default function rootReducer(state = initialState, action) {
           }
         }
       }
+      break
     case FILTER_BY_TOURIST_ACTIVITY:
       let myNewArr = []
       if (Array.isArray(action.payload)) {
-        let newArr = action.payload
+        action.payload
           .filter((obj) => obj.countries.length > 0)
           .map((obj) => {
             let { countries: arr } = obj
@@ -160,7 +161,6 @@ export default function rootReducer(state = initialState, action) {
         orderPop: "",
       }
     case ORDER_POP:
-      console.log(action.payload.population)
       return {
         ...state,
         current: action.payload.json,
