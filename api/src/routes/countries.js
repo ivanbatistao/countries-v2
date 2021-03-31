@@ -188,24 +188,28 @@ app.get("/countries/:id", async (req, res) => {
 })
 
 app.get("/allCountries", async (req, res) => {
-  const { continent } = req.query
-  if (continent !== "all") {
-    const allCountries = await Country.findAll({
-      include: { model: TouristActivity },
-      attributes: { exclude: ["createdAt", "updatedAt"] },
-      order: [["name", "ASC"]],
-    })
-    if (allCountries.length > 0) {
-      res.json(allCountries)
+  try {
+    const { continent } = req.query
+    if (continent !== "all") {
+      const allCountries = await Country.findAll({
+        include: { model: TouristActivity },
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+        order: [["name", "ASC"]],
+      })
+      if (allCountries.length > 0) {
+        res.json(allCountries)
+      }
+    } else {
+      const tenCountries = await Country.findAll({
+        include: { model: TouristActivity },
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+        order: [["name", "ASC"]],
+        limit: 10,
+      })
+      res.json(tenCountries)
     }
-  } else {
-    const tenCountries = await Country.findAll({
-      include: { model: TouristActivity },
-      attributes: { exclude: ["createdAt", "updatedAt"] },
-      order: [["name", "ASC"]],
-      limit: 10,
-    })
-    res.json(tenCountries)
+  } catch (error) {
+    console.error(error.message)
   }
 })
 
