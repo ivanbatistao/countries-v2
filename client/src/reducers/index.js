@@ -36,21 +36,9 @@ export default function rootReducer(state = initialState, action) {
     case GET_TEN_COUNTRIES:
       return {
         ...state,
-        // countries: action.payload.sort((a, b) => {
-        //   if (a.name > b.name) return 1
-        //   if (a.name < b.name) return -1
-        //   return 0
-        // }),
         current: action.payload,
         stateChooseContinent: "active",
       }
-    // case GET_COUNTRIES_SEARCH:
-    //   return {
-    //     ...state,
-    //     current: action.payload,
-    //     stateChooseContinent: "inactive",
-    //     pages: "",
-    //   }
     case GET_COUNTRIES_SEARCH:
       let newName = action.payload.name.toLowerCase()
       let newPayloadJson = action.payload.json.map((obj) => ({
@@ -64,11 +52,20 @@ export default function rootReducer(state = initialState, action) {
           ...obj,
           name: obj.name.charAt(0).toUpperCase() + obj.name.slice(1),
         }))
+      if (newPayload.length > 0) {
         return {
           ...state,
           current: newPayload,
           stateChooseContinent: "inactive",
           pages: "",
+        }
+      } else {
+        return {
+          ...state,
+          current: {},
+          stateChooseContinent: "inactive",
+          pages: "",
+        }
       }
     case GET_COUNTRY_DETAILS:
       return {
@@ -79,11 +76,6 @@ export default function rootReducer(state = initialState, action) {
     case GET_PAGES:
       return {
         ...state,
-        // countries: action.payload.sort((a, b) => {
-        //   if (a.name > b.name) return 1
-        //   if (a.name < b.name) return -1
-        //   return 0
-        // }),
         current: action.payload,
         stateChooseContinent: "active",
       }
@@ -92,11 +84,6 @@ export default function rootReducer(state = initialState, action) {
         let newAction = action.payload.json.splice(0, 10)
         return {
           ...state,
-          // countries: newAction.sort((a, b) => {
-          //   if (a.name > b.name) return 1
-          //   if (a.name < b.name) return -1
-          //   return 0
-          // }),
           current: newAction,
           continentState: action.payload.continent,
           pages: " "
@@ -124,11 +111,6 @@ export default function rootReducer(state = initialState, action) {
           }
           return {
             ...state,
-            // countries: newAction.sort((a, b) => {
-            //   if (a.name > b.name) return 1
-            //   if (a.name < b.name) return -1
-            //   return 0
-            // }),
             current: newAction,
             continentState: action.payload.continent,
             pages: " "
@@ -155,7 +137,7 @@ export default function rootReducer(state = initialState, action) {
           }),
         ]
       } else {
-        myNewArr = []
+        myNewArr = action.payload
       }
       return {
         ...state,
