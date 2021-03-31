@@ -20,14 +20,6 @@ export function getTenCountries() {
   }
 }
 
-// export function getCountriesSearch(name) {
-//   return async function (dispatch) {
-//     const response = await fetch(`http://localhost:3001/countries?name=${name}`)
-//     const json = await response.json()
-//     dispatch({ type: GET_COUNTRIES_SEARCH, payload: json })
-//   }
-// }
-
 export function getCountriesSearch(name) {
   return async function (dispatch) {
     const response = await fetch(`http://localhost:3001/allCountries`)
@@ -45,7 +37,6 @@ export function getCountryDetails(id) {
 }
 
 export function getCountryPagination(page, continent, order, population) {
-  console.log("actions:", population, page)
   if (population) {
     return async function (dispatch) {
       const response = await fetch(
@@ -83,7 +74,6 @@ export function filterByTouristActivity(touristActivity) {
       `http://localhost:3001/countries?activity=${touristActivity}`
     )
     const json = await response.json()
-    console.log("action", json)
     dispatch({ type: FILTER_BY_TOURIST_ACTIVITY, payload: json })
   }
 }
