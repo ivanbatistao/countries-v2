@@ -11,14 +11,14 @@ app.get("/countries", async (req, res) => {
 
     let countries = await Country.findAll()
     if (countries.length === 0) {
-      countries = await axios.get("https://restcountries.eu/rest/v2/all")
+      countries = await axios.get("https://restcountries.com/v2/all")
       countries = await countries.data.map(async (obj) => {
         await Country.create({
           id: obj.alpha3Code,
           name: obj.name,
           flag: obj.flag,
           continent: obj.region,
-          capital: obj.capital,
+          capital: obj.capital || 'None',
           subregion: obj.subregion,
           area: parseInt(obj.area) ? parseInt(obj.area) : 0,
           population: obj.population,
